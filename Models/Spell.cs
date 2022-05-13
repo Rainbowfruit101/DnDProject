@@ -4,7 +4,7 @@ public class Spell
 {
     public string Name { get; }
     public string School { get; }
-    public PersonClass Class { get; }
+    public LiveEntityClass Class { get; }
     public int Level { get; }
     public bool UseConcentration { get; }
     public string ConcentrationTime { get; }
