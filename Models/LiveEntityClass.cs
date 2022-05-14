@@ -1,6 +1,6 @@
 ﻿namespace Models;
 
-public class LiveEntityClass
+public class LiveEntityClass: ModelBase
 {
     public enum ClassType
     {
@@ -19,6 +19,6 @@ public class LiveEntityClass
         Inventor
     }
 
-    public ClassType EClassType { get; }
-    public string Name { get; }
+    public ClassType EClassType { get; init; }
+    public string Name { get; init; }
 }
