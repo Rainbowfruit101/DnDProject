@@ -1,6 +1,4 @@
-﻿using System.Security.AccessControl;
-
-namespace Models;
+﻿namespace Models;
 
 public class Backpack
 {
