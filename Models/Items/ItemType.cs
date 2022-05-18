@@ -1,12 +1,24 @@
-﻿namespace Models.Items;
+﻿using Models.Interfaces;
 
-public class ItemType
+namespace Models.Items;
+
+public class ItemType : IIdentifiable, IHasName
 {
     public enum Type
     {
-        MagicRod, Armor, Wand, Potion, Ring, Weapon, Staff, Scroll, WondrousItem
+        MagicRod,
+        Armor,
+        Wand,
+        Potion,
+        Ring,
+        Weapon,
+        Staff,
+        Scroll,
+        WondrousItem
     }
 
-    public Type EType { get; }
+    public Guid Id { get; init; }
     public string Name { get; }
+
+    public Type EType { get; }
 }

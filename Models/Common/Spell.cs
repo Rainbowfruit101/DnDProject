@@ -1,10 +1,12 @@
-﻿using Models.Items;
+﻿using Models.Interfaces;
+using Models.Items;
 using Models.LiveEntities;
 
 namespace Models.Common;
 
-public class Spell
+public class Spell : IIdentifiable, IHasName
 {
+    public Guid Id { get; init; }
     public string Name { get; }
     public string School { get; }
     public LiveEntityClass Class { get; }

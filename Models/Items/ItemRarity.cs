@@ -1,14 +1,24 @@
-﻿namespace Models.Items;
+﻿using Models.Interfaces;
 
-public class ItemRarity
+namespace Models.Items;
+
+public class ItemRarity : IIdentifiable, IHasName
 {
     public enum Rarity
     {
-        None, Common, Uncommon, Rare, VeryRare, Legendary, Artifact, Various
+        None,
+        Common,
+        Uncommon,
+        Rare,
+        VeryRare,
+        Legendary,
+        Artifact,
+        Various
     }
 
-    public Rarity ERarity { get; }
+    public Guid Id { get; init; }
     public string Name { get; }
+
+    public Rarity ERarity { get; }
     public int Modifier { get; }
-    
 }

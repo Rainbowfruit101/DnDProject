@@ -1,6 +1,9 @@
-﻿namespace Models.Common;
+﻿using Models.Interfaces;
 
-public class SpellComponent
+namespace Models.Common;
+
+public class SpellComponent : IIdentifiable, IHasName
 {
+    public Guid Id { get; init; }
     public string Name { get; }
 }

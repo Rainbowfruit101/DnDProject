@@ -2,7 +2,7 @@
 
 namespace Models.LiveEntities;
 
-public class LiveEntityClass : IIdentifiable
+public class LiveEntityClass : IIdentifiable, IHasName
 {
     public enum ClassType
     {
@@ -22,6 +22,6 @@ public class LiveEntityClass : IIdentifiable
     }
 
     public Guid Id { get; init; }
-    public ClassType EClassType { get; init; }
     public string Name { get; init; }
+    public ClassType EClassType { get; init; }
 }

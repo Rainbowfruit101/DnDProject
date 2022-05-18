@@ -2,15 +2,19 @@
 
 namespace Models.Items;
 
-public class DamageType : IIdentifiable
+public class DamageType : IIdentifiable, IHasName
 {
-    public Guid Id { get; init; }
-
     public enum Type
     {
-        Crushing, Stabbing, Slashing, Fire, Ice
+        Crushing,
+        Stabbing,
+        Slashing,
+        Fire,
+        Ice
     }
 
-    public Type EType { get; }
+    public Guid Id { get; init; }
     public string Name { get; }
+
+    public Type EType { get; }
 }

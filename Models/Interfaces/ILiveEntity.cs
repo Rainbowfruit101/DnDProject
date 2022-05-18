@@ -3,9 +3,8 @@ using Models.LiveEntities;
 
 namespace Models.Interfaces;
 
-public interface ILiveEntity : IIdentifiable
+public interface ILiveEntity : IIdentifiable, IHasName
 {
-    public string Name { get; }
     public int Level { get; }
     public string Ideology { get; }
     public int MaxHealth { get; }

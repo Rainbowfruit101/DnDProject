@@ -1,6 +1,8 @@
-﻿namespace Models.LiveEntities;
+﻿using Models.Interfaces;
 
-public class LiveEntityRace
+namespace Models.LiveEntities;
+
+public class LiveEntityRace : IIdentifiable, IHasName
 {
     public enum Race
     {
@@ -49,6 +51,7 @@ public class LiveEntityRace
         YuanTiPureblood
     }
 
-    public Race ERace { get; }
+    public Guid Id { get; init; }
     public string Name { get; }
+    public Race ERace { get; }
 }

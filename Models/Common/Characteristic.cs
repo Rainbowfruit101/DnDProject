@@ -2,7 +2,7 @@
 
 namespace Models.Common;
 
-public class Characteristic : IIdentifiable
+public class Characteristic : IIdentifiable, IHasName
 {
     public Guid Id { get; init; }
     public string Name { get; }
