@@ -13,7 +13,7 @@ public class ItemsDbContext : DbContext
     public DbSet<Weapon> Weapons { get; private set; }
     public DbSet<SpellScroll> SpellScrolls { get; private set; }
 
-    public ItemsDbContext(DbContextOptions options) : base(options)
+    public ItemsDbContext(DbContextOptions<ItemsDbContext> options) : base(options)
     {
     }
 }
