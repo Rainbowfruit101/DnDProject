@@ -17,6 +17,7 @@ builder.Services.AddDbContext<DnDDatabaseContext>(options =>
         Console.WriteLine("идиот ты коннекшн стринг не задал!");
         return;
     }
+
     options.UseNpgsql(cs);
 });
 

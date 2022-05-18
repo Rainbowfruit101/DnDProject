@@ -1,4 +1,6 @@
-﻿namespace Models;
+﻿using Models.Common;
+
+namespace Models.Items;
 
 public class SpellScroll : Item
 {

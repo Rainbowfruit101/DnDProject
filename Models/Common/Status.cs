@@ -1,4 +1,4 @@
-﻿namespace Models;
+﻿namespace Models.Common;
 
 public class Status
 {

@@ -1,6 +1,9 @@
-﻿namespace Models.Interfaces;
+﻿using Models.Common;
+using Models.LiveEntities;
 
-public interface ILiveEntity
+namespace Models.Interfaces;
+
+public interface ILiveEntity : IIdentifiable
 {
     public string Name { get; }
     public int Level { get; }

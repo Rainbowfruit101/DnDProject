@@ -1,4 +1,4 @@
-﻿namespace Models;
+﻿namespace Models.LiveEntities;
 
 public class LiveEntityRace
 {

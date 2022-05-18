@@ -1,4 +1,4 @@
-﻿namespace Models;
+﻿namespace Models.Items;
 
 public class ItemRarity
 {

@@ -1,4 +1,7 @@
-﻿namespace Models;
+﻿using Models.Items;
+using Models.LiveEntities;
+
+namespace Models.Common;
 
 public class Spell
 {

@@ -1,9 +1,11 @@
-﻿using Models.Interfaces;
+﻿using Models.Common;
+using Models.Interfaces;
 
-namespace Models;
+namespace Models.LiveEntities;
 
-public class Person : ILiveEntity
+public class NonPlayerCharacter : ILiveEntity
 {
+    public Guid Id { get; init; }
     public string Name { get; init; }
     public int Level { get; init; }
     public string Ideology { get; init; }
@@ -16,7 +18,7 @@ public class Person : ILiveEntity
     public List<Spell> Spells { get; init; }
     public string ImageSource { get; init; }
     public List<Status> CreatureStatus { get; init; }
-    
-    public string PlayerName { get; init; }
+
     public Backpack Backpack { get; init; }
+    public double Relation { get; set; }
 }

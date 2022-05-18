@@ -1,7 +1,11 @@
-﻿namespace Models;
+﻿using Models.Interfaces;
 
-public class DamageType
+namespace Models.Items;
+
+public class DamageType : IIdentifiable
 {
+    public Guid Id { get; init; }
+
     public enum Type
     {
         Crushing, Stabbing, Slashing, Fire, Ice

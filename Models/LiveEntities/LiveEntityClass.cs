@@ -1,6 +1,8 @@
-﻿namespace Models;
+﻿using Models.Interfaces;
 
-public class LiveEntityClass: ModelBase
+namespace Models.LiveEntities;
+
+public class LiveEntityClass : IIdentifiable
 {
     public enum ClassType
     {
@@ -19,6 +21,7 @@ public class LiveEntityClass: ModelBase
         Inventor
     }
 
+    public Guid Id { get; init; }
     public ClassType EClassType { get; init; }
     public string Name { get; init; }
 }
