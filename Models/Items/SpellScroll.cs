@@ -4,5 +4,5 @@ namespace Models.Items;
 
 public class SpellScroll : Item
 {
-    public Spell Spell { get; }
+    public Spell Spell { get; init; }
 }

@@ -4,7 +4,7 @@ namespace Models.LiveEntities;
 
 public class LiveEntityClass : IIdentifiable, IHasName
 {
-    public enum ClassType
+    public enum Type
     {
         Bard,
         Sorcerer,
@@ -23,5 +23,5 @@ public class LiveEntityClass : IIdentifiable, IHasName
 
     public Guid Id { get; init; }
     public string Name { get; init; }
-    public ClassType EClassType { get; init; }
+    public Type EType { get; init; }
 }

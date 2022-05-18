@@ -15,5 +15,5 @@ public interface ILiveEntity : IIdentifiable, IHasName
     public LiveEntityRace PersonRace { get; }
     public List<Spell> Spells { get; }
     public string ImageSource { get; }
-    public List<Status> CreatureStatus { get; }
+    public List<Status> Statuses { get; }
 }

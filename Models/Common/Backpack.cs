@@ -6,6 +6,6 @@ namespace Models.Common;
 public class Backpack : IIdentifiable
 {
     public Guid Id { get; init; }
-    public List<Item> Items { get; }
-    public List<string> OtherItems { get; }
+    public List<Item> Items { get; init; }
+    public List<string> OtherItems { get; init; }
 }

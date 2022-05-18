@@ -7,15 +7,15 @@ namespace Models.Common;
 public class Spell : IIdentifiable, IHasName
 {
     public Guid Id { get; init; }
-    public string Name { get; }
-    public string School { get; }
-    public LiveEntityClass Class { get; }
-    public int Level { get; }
-    public bool UseConcentration { get; }
-    public string ConcentrationTime { get; }
-    public int DiceCount { get; }
-    public int DiceEdges { get; }
-    public DamageType DamageType { get; }
-    public List<SpellComponent> AvailableComponents { get; }
-    public string Description { get; }
+    public string Name { get; init; }
+    public School School { get; init; }
+    public List<LiveEntityClass> AvailableClasses { get; init; }
+    public int Level { get; init; }
+    public bool UseConcentration { get; init; }
+    public string ConcentrationTime { get; init; }
+    public int DiceCount { get; init; }
+    public int DiceEdges { get; init; }
+    public DamageType DamageType { get; init; }
+    public List<SpellComponent> AvailableComponents { get; init; }
+    public string Description { get; init; }
 }

@@ -52,6 +52,6 @@ public class LiveEntityRace : IIdentifiable, IHasName
     }
 
     public Guid Id { get; init; }
-    public string Name { get; }
-    public Race ERace { get; }
+    public string Name { get; init; }
+    public Race ERace { get; init; }
 }

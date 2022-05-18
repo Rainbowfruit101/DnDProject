@@ -18,7 +18,7 @@ public class ItemType : IIdentifiable, IHasName
     }
 
     public Guid Id { get; init; }
-    public string Name { get; }
+    public string Name { get; init; }
 
-    public Type EType { get; }
+    public Type EType { get; init; }
 }

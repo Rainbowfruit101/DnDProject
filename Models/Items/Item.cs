@@ -5,11 +5,11 @@ namespace Models.Items;
 public class Item : IIdentifiable, IHasName, IHasCost
 {
     public Guid Id { get; init; }
-    public string Name { get; }
-    public int Cost { get; }
-    public ItemType Type { get; }
-    public ItemRarity Rarity { get; }
-    public bool LinkRequired { get; }
-    public string Properties { get; }
-    public string ImageSource { get; }
+    public string Name { get; init; }
+    public int Cost { get; init; }
+    public ItemType Type { get; init; }
+    public ItemRarity Rarity { get; init; }
+    public bool LinkRequired { get; init; }
+    public string Properties { get; init; }
+    public string ImageSource { get; init; }
 }
