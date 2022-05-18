@@ -9,17 +9,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<DnDDatabaseContext>(options =>
-{
-    var cs = builder.Configuration.GetConnectionString("DnDDatabase");
-    if (string.IsNullOrWhiteSpace(cs))
-    {
-        Console.WriteLine("идиот ты коннекшн стринг не задал!");
-        return;
-    }
 
-    options.UseNpgsql(cs);
-});
+builder.Services.AddDbContext<LiveEntitiesDbContext>(ConfigureDefaultConnection);
+builder.Services.AddDbContext<ItemsDbContext>(ConfigureDefaultConnection);
+builder.Services.AddDbContext<CommonDbContext>(ConfigureDefaultConnection);
 
 var app = builder.Build();
 
@@ -37,3 +30,16 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+void ConfigureDefaultConnection(DbContextOptionsBuilder options)
+{
+    var connectionString = builder.Configuration.GetConnectionString("DnDDatabase");
+    
+    if (string.IsNullOrWhiteSpace(connectionString))
+    {
+        Console.WriteLine("DnDDatabase connection string is not set");
+        return;
+    }
+
+    options.UseNpgsql(connectionString);
+}

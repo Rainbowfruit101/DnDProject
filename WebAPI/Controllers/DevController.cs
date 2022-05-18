@@ -5,23 +5,25 @@ using Models.LiveEntities;
 
 namespace WebAPI.Controllers;
 
-[Route("/api")]
-public class TestController : Controller
+[Route("/dev")]
+public class DevController : Controller
 {
-    private readonly DnDDatabaseContext _dbContext;
+    private readonly LiveEntitiesDbContext _dbContext;
 
-    public TestController(DnDDatabaseContext dbContext)
+    public DevController(LiveEntitiesDbContext dbContext)
     {
         _dbContext = dbContext;
     }
     
-    [HttpGet("/create")]
+    [HttpGet("/create-db")]
     public IActionResult CreateDb()
     {
-        var resultText = "none";
+        string resultText;
         try
         {
             _dbContext.Database.EnsureCreated();
+            
+            _dbContext.Classes.RemoveAll();
             foreach (LiveEntityClass.ClassType classType in Enum.GetValues(typeof(LiveEntityClass.ClassType)))
             {
                 _dbContext.Classes.Add(new LiveEntityClass()
@@ -42,22 +44,5 @@ public class TestController : Controller
         }
         
         return Json(new {result = resultText});
-    }
-
-    [HttpGet("/class/search")]
-    public IActionResult ClassSearch(LiveEntityClass.ClassType type)
-    {
-        try
-        {
-            var leClass = _dbContext.FindByType(type);
-            if (leClass == null)
-                throw new Exception("NotFound");
-
-            return Json(leClass);
-        }
-        catch (Exception e)
-        {
-            return NotFound(new {result = e.Message});
-        }
     }
 }
