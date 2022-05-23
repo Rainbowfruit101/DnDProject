@@ -10,8 +10,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<LiveEntitiesDbContext>(ConfigureDefaultConnection);
-builder.Services.AddDbContext<ItemsDbContext>(ConfigureDefaultConnection);
 builder.Services.AddDbContext<CommonDbContext>(ConfigureDefaultConnection);
 
 var app = builder.Build();

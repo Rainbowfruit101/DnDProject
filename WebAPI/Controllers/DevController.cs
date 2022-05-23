@@ -12,15 +12,10 @@ namespace WebAPI.Controllers;
 public class DevController : Controller
 {
     private readonly CommonDbContext _commonDbContext;
-    private readonly LiveEntitiesDbContext _liveEntitiesDbContext;
-    private readonly ItemsDbContext _itemsDbContext;
 
-    public DevController(CommonDbContext commonDbContext, LiveEntitiesDbContext liveEntitiesDbContext,
-        ItemsDbContext itemsDbContext)
+    public DevController(CommonDbContext commonDbContext)
     {
         _commonDbContext = commonDbContext;
-        _liveEntitiesDbContext = liveEntitiesDbContext;
-        _itemsDbContext = itemsDbContext;
     }
 
     [HttpGet("/create-db")]
@@ -29,13 +24,9 @@ public class DevController : Controller
         string resultText;
         try
         {
-            _liveEntitiesDbContext.Database.EnsureDeleted();
             _commonDbContext.Database.EnsureDeleted();
-            _itemsDbContext.Database.EnsureDeleted();
 
-            _liveEntitiesDbContext.Database.EnsureCreated();
             _commonDbContext.Database.EnsureCreated();
-            _itemsDbContext.Database.EnsureCreated();
 
             FillTypedEntities<School, School.Type>(
                 _commonDbContext.Schools,
@@ -48,7 +39,7 @@ public class DevController : Controller
             );
 
             FillTypedEntities<DamageType, DamageType.Type>(
-                _itemsDbContext.DamageTypes,
+                _commonDbContext.DamageTypes,
                 type => new DamageType()
                 {
                     Id = Guid.NewGuid(),
@@ -58,7 +49,7 @@ public class DevController : Controller
             );
 
             FillTypedEntities<ItemRarity, ItemRarity.Rarity>(
-                _itemsDbContext.ItemRarities,
+                _commonDbContext.ItemRarities,
                 type => new ItemRarity()
                 {
                     Id = Guid.NewGuid(),
@@ -69,7 +60,7 @@ public class DevController : Controller
             );
 
             FillTypedEntities<ItemType, ItemType.Type>(
-                _itemsDbContext.ItemTypes,
+                _commonDbContext.ItemTypes,
                 type => new ItemType()
                 {
                     Id = Guid.NewGuid(),
@@ -79,7 +70,7 @@ public class DevController : Controller
             );
 
             FillTypedEntities<LiveEntityClass, LiveEntityClass.Type>(
-                _liveEntitiesDbContext.Classes,
+                _commonDbContext.Classes,
                 type => new LiveEntityClass()
                 {
                     Id = Guid.NewGuid(),
@@ -89,7 +80,7 @@ public class DevController : Controller
             );
 
             FillTypedEntities<LiveEntityRace, LiveEntityRace.Race>(
-                _liveEntitiesDbContext.Races,
+                _commonDbContext.Races,
                 type => new LiveEntityRace()
                 {
                     Id = Guid.NewGuid(),
@@ -99,7 +90,7 @@ public class DevController : Controller
             );
 
             FillTypedEntities<Status, Status.Type>(
-                _liveEntitiesDbContext.Statuses,
+                _commonDbContext.Statuses,
                 type => new Status()
                 {
                     Id = Guid.NewGuid(),
@@ -110,9 +101,7 @@ public class DevController : Controller
                 }
             );
 
-            _liveEntitiesDbContext.SaveChanges();
             _commonDbContext.SaveChanges();
-            _itemsDbContext.SaveChanges();
 
             resultText = "ok";
         }
@@ -125,11 +114,9 @@ public class DevController : Controller
     }
 
     private void FillTypedEntities<TEntity, TEnum>(DbSet<TEntity> dbSet, Func<TEnum, TEntity> entityProducer)
-        where TEntity : class, IIdentifiable, new()
+        where TEntity : class
         where TEnum : Enum
     {
-        dbSet.RemoveAll();
-
         foreach (TEnum type in Enum.GetValues(typeof(TEnum)))
         {
             dbSet.Add(entityProducer(type));
