@@ -1,4 +1,5 @@
-﻿using Models.Interfaces;
+﻿using Models.Common;
+using Models.Interfaces;
 
 namespace Models.LiveEntities;
 
@@ -24,4 +25,7 @@ public class LiveEntityClass : IIdentifiable, IHasName
     public Guid Id { get; init; }
     public string Name { get; init; }
     public Type EType { get; init; }
+    
+    public List<Spell> Spells { get; init; }
+    public List<Person> Persons { get; init; }
 }

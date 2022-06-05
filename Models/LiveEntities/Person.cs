@@ -23,7 +23,13 @@ public class Person : ILiveEntity
 
     public string PlayerName { get; init; }
     public Backpack Backpack { get; init; }
-    public LiveEntityClass[] MultiClass => _multiClass.Concat(new[] { PersonClass }).ToArray();
+
+    public IReadOnlyList<LiveEntityClass> MultiClasses
+    {
+        get => _multiClass;
+        init => _multiClass = value.ToList();
+    }
+    public LiveEntityClass[] AllClasses => _multiClass.Concat(new[] { PersonClass }).ToArray();
 
     public Person()
     {

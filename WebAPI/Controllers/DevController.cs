@@ -21,7 +21,6 @@ public class DevController : Controller
     [HttpGet("/create-db")]
     public IActionResult CreateDb()
     {
-        string resultText;
         try
         {
             _commonDbContext.Database.EnsureDeleted();
@@ -103,14 +102,12 @@ public class DevController : Controller
 
             _commonDbContext.SaveChanges();
 
-            resultText = "ok";
+            return Json(new {result = "ok"});
         }
         catch (Exception e)
         {
-            resultText = e.Message;
+            return StatusCode(500, new {result = e.Message});
         }
-
-        return Json(new {result = resultText});
     }
 
     private void FillTypedEntities<TEntity, TEnum>(DbSet<TEntity> dbSet, Func<TEnum, TEntity> entityProducer)

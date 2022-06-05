@@ -1,4 +1,5 @@
-﻿using Models.Interfaces;
+﻿using Models.Common;
+using Models.Interfaces;
 
 namespace Models.Items;
 
@@ -12,4 +13,6 @@ public class Item : IIdentifiable, IHasName, IHasCost
     public bool LinkRequired { get; init; }
     public string Properties { get; init; }
     public string ImageSource { get; init; }
+    
+    public List<Backpack> Backpacks { get; init; }
 }
