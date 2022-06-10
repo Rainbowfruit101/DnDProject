@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Models.Common;
-using Models.Interfaces;
 using Models.Items;
 using Models.LiveEntities;
 
@@ -43,7 +42,8 @@ public class DevController : Controller
                 {
                     Id = Guid.NewGuid(),
                     Name = type.ToString(),
-                    EType = type
+                    EType = type,
+                    Description = ""
                 }
             );
 
