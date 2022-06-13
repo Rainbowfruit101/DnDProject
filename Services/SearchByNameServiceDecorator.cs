@@ -2,12 +2,12 @@
 
 namespace Services;
 
-public class SearchByNameDecoratorService
+public class SearchByNameServiceDecorator
 {
     private readonly SearchByNameService _searchService;
     private readonly string _searchedValue;
 
-    public SearchByNameDecoratorService(SearchByNameService searchService, string searchedValue)
+    public SearchByNameServiceDecorator(SearchByNameService searchService, string searchedValue)
     {
         _searchService = searchService;
         _searchedValue = searchedValue;

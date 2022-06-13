@@ -1,5 +1,8 @@
 using Database;
 using Microsoft.EntityFrameworkCore;
+using Models.LiveEntities;
+using Services;
+using Services.CrudServiceImpls;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +14,24 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<CommonDbContext>(ConfigureDefaultConnection);
+builder.Services.AddSingleton<SearchByNameService>();
+
+builder.Services.AddScoped<CreatureCrudService>();
+builder.Services.AddScoped<ICrudService<Creature>, CreatureCrudService>();
+builder.Services.AddScoped<ICreatureCrudService>(provider =>
+{
+    var type = builder.Configuration.GetValue<int>("CreatureService");
+    var dbContext = provider.GetService<CommonDbContext>();
+    if (dbContext == null)
+        throw new Exception($"{typeof(CommonDbContext).FullName} not found");
+    
+    if (type == 1)
+        return new CreatureCrudService(dbContext);
+    if (type == 2)
+        return new CreatureCustomCrudService(dbContext);
+
+    throw new ArgumentOutOfRangeException($"wrong CreatureService type: {type}");
+});
 
 var app = builder.Build();
 
