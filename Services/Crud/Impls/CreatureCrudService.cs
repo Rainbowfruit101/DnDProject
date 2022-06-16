@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Models.LiveEntities;
 
-namespace Services.CrudServiceImpls;
+namespace Services.Crud.Impls;
 
 public class CreatureCrudService : CrudServiceBase<Creature>, ICreatureCrudService
 {

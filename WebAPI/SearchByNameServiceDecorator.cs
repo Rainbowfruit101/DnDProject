@@ -1,6 +1,7 @@
 ﻿using Models.Interfaces;
+using Services.Filtration;
 
-namespace Services;
+namespace WebAPI;
 
 public class SearchByNameServiceDecorator
 {

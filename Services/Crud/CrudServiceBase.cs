@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Models.Interfaces;
 
-namespace Services;
+namespace Services.Crud;
 
 public abstract class CrudServiceBase<TEntity> : ICrudService<TEntity>
     where TEntity : class, IIdentifiable

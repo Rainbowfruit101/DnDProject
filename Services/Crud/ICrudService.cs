@@ -1,4 +1,4 @@
-﻿namespace Services;
+﻿namespace Services.Crud;
 
 public interface ICrudService<TEntity>
 {
