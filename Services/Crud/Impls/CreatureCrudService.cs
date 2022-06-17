@@ -4,7 +4,7 @@ using Models.LiveEntities;
 
 namespace Services.Crud.Impls;
 
-public class CreatureCrudService : CrudServiceBase<Creature>, ICreatureCrudService
+public class CreatureCrudService : CrudServiceBase<Creature>
 {
     private readonly CommonDbContext _dbContext;
     

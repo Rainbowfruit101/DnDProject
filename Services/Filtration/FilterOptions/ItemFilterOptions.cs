@@ -4,6 +4,7 @@ namespace Services.Filtration.FilterOptions;
 
 public class ItemFilterOptions
 {
+    public string? Name { get; init; }
     public Range<int>? CostRange { get; init; }
     public ItemType? Type { get; init; }
     public ItemRarity? Rarity { get; init; }

@@ -1,17 +1,19 @@
 ﻿using Models.Interfaces;
+using Services.Filtration.TextSearchPredicate;
+using Services.Filtration.TextSearchPredicate.Impls;
 
 namespace Services.Filtration;
 
 public class SearchByNameService
 {
-    private readonly TextPredicates _textPredicates;
+    private readonly ITextSearchPredicate _textSearchPredicate;
 
-    public SearchByNameService()
+    public SearchByNameService(ITextSearchPredicate textSearchPredicate)
     {
-        _textPredicates = new TextPredicates();
+        _textSearchPredicate = textSearchPredicate;
     }
     public IEnumerable<IHasName> SearchEntities(IEnumerable<IHasName> dbSet, string searchedValue)
     {
-        return dbSet.Where(namedEntity => _textPredicates.SubstringPredicate(namedEntity.Name, searchedValue, false));
+        return dbSet.Where(namedEntity => _textSearchPredicate.Run(namedEntity.Name, searchedValue));
     }
 }

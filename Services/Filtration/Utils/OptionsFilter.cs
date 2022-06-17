@@ -1,18 +1,21 @@
-﻿namespace Services.Filtration;
+﻿namespace Services.Filtration.Utils;
 
-public class Filter<TItem, TOptions>
+public class OptionsFilter<TItem, TOptions>
 {
     private IEnumerable<TItem> _enumerable;
     private readonly TOptions _options;
     
-    public Filter(IEnumerable<TItem> enumerable, TOptions options)
+    public OptionsFilter(IEnumerable<TItem> enumerable, TOptions options)
     {
         _enumerable = enumerable;
         _options = options;
     }
 
-    public Filter<TItem, TOptions> FilterBy<TOption>(Func<TOptions, TOption> optionSelector, Func<TItem, TOption, bool> predicate)
+    public OptionsFilter<TItem, TOptions> FilterBy<TOption>(Func<TOptions, TOption> optionSelector, Func<TItem, TOption, bool> predicate)
     {
+        if (!_enumerable.Any())
+            return this;
+        
         var optionValue = optionSelector(_options);
         if (optionValue != null)
         {

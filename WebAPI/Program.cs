@@ -1,7 +1,6 @@
 using Database;
 using Microsoft.EntityFrameworkCore;
 using Models.LiveEntities;
-using Services;
 using Services.Crud;
 using Services.Crud.Impls;
 using Services.Filtration;
@@ -18,9 +17,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<CommonDbContext>(ConfigureDefaultConnection);
 builder.Services.AddSingleton<SearchByNameService>();
 
-builder.Services.AddScoped<CreatureCrudService>();
-builder.Services.AddScoped<ICrudService<Creature>, CreatureCrudService>();
-builder.Services.AddScoped<ICreatureCrudService>(provider =>
+builder.Services.AddScoped<ICrudService<Creature>>(provider =>
 {
     var type = builder.Configuration.GetValue<int>("CreatureService");
     var dbContext = provider.GetService<CommonDbContext>();

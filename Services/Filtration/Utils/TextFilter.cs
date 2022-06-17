@@ -1,22 +1,23 @@
-﻿namespace Services.Filtration;
+﻿using Services.Filtration.TextSearchPredicate;
+
+namespace Services.Filtration.Utils;
 
 public class TextFilter<TItem>
 {
     private IEnumerable<TItem> _enumerable;
+    private readonly ITextSearchPredicate _textSearchPredicate;
 
-    private readonly TextPredicates _textPredicates;
-    
-    public TextFilter(IEnumerable<TItem> enumerable)
+    public TextFilter(IEnumerable<TItem> enumerable, ITextSearchPredicate textSearchPredicate)
     {
         _enumerable = enumerable;
-        _textPredicates = new TextPredicates();
+        _textSearchPredicate = textSearchPredicate;
     }
 
-    public TextFilter<TItem> SearchExact(string searchedText, Func<TItem, string> fieldSelector, 
+    public TextFilter<TItem> SearchExact(Func<TItem, string> fieldSelector, string searchedText, 
         bool caseSensitive = false)
     {
         _enumerable = _enumerable.Where(i => 
-            _textPredicates. ExactPredicate(fieldSelector(i), searchedText, caseSensitive)
+            _textSearchPredicate.ExactPredicate(fieldSelector(i), searchedText, caseSensitive)
         );
         return this;
     }
@@ -25,7 +26,7 @@ public class TextFilter<TItem>
         bool caseSensitive = false)
     {
         _enumerable = _enumerable.Where(i => 
-            _textPredicates.SubstringPredicate(fieldSelector(i), searchedText, caseSensitive)
+            _textSearchPredicate.SubstringPredicate(fieldSelector(i), searchedText, caseSensitive)
         );
         return this;
     }
@@ -34,7 +35,7 @@ public class TextFilter<TItem>
         bool caseSensitive = false)
     {
         _enumerable = _enumerable.Where(i => 
-            _textPredicates.ByWordsPredicate(fieldSelector(i), searchedText, caseSensitive)
+            _textSearchPredicate.ByWordsPredicate(fieldSelector(i), searchedText, caseSensitive)
         );
         return this;
     }
