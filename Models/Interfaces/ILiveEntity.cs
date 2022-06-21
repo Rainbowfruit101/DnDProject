@@ -6,7 +6,7 @@ namespace Models.Interfaces;
 public interface ILiveEntity : IIdentifiable, IHasName
 {
     public int Level { get; }
-    public string Ideology { get; }
+    public Ideology Ideology { get; }
     public int MaxHealth { get; }
     public int CurrentHealth { get; }
     public List<Characteristic> Сharacteristics { get; }

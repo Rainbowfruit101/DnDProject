@@ -8,7 +8,7 @@ public class NonPlayerCharacter : ILiveEntity
     public Guid Id { get; init; }
     public string Name { get; init; }
     public int Level { get; set; }
-    public string Ideology { get; init; }
+    public Ideology Ideology { get; init; }
     public int MaxHealth { get; set; }
     public int CurrentHealth { get; set; }
     public List<Characteristic> Сharacteristics { get; init; }

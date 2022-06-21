@@ -11,5 +11,5 @@ public class Weapon : IIdentifiable, IHasName, IHasCost
     public int DiceEdges { get; init; }
     public DamageType DamageType { get; init; }
     public double Weight { get; init; }
-    public string Properties { get; init; }
+    public List<Property> Properties { get; init; }
 }

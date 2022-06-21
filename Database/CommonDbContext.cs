@@ -10,6 +10,7 @@ public class CommonDbContext : DbContext
     //common
     public DbSet<LiveEntityClass> Classes { get; private set; }
     public DbSet<LiveEntityRace> Races { get; private set; }
+    public DbSet<Ideology> Ideologies { get; private set; }
     public DbSet<DamageType> DamageTypes { get; private set; }
     public DbSet<SpellScroll> SpellScrolls { get; private set; }
     public DbSet<SpellComponent> SpellComponents { get; private set; }
@@ -29,6 +30,7 @@ public class CommonDbContext : DbContext
     public DbSet<Person> Persons { get; private set; }
 
     public DbSet<Weapon> Weapons { get; private set; }
+    public DbSet<Property> Properties { get; private set; }
 
     public CommonDbContext(DbContextOptions<CommonDbContext> options) : base(options)
     {
@@ -74,7 +76,10 @@ public class CommonDbContext : DbContext
         modelBuilder.Entity<NonPlayerCharacter>()
             .HasOne<LiveEntityClass>(npc => npc.PersonClass)
             .WithMany();
-
+        modelBuilder.Entity<NonPlayerCharacter>()
+            .HasOne<Ideology>(npc => npc.Ideology)
+            .WithMany();
+            
         modelBuilder.Entity<Person>()
             .HasMany<Status>(person => person.Statuses)
             .WithMany(status => status.Persons);
@@ -98,6 +103,9 @@ public class CommonDbContext : DbContext
             .WithMany(leClass => leClass.Persons);
         modelBuilder.Entity<Person>()
             .Ignore(person => person.AllClasses);
+        modelBuilder.Entity<Person>()
+            .HasOne<Ideology>(person => person.Ideology)
+            .WithMany();
 
         modelBuilder.Entity<Creature>()
             .HasMany<Status>(creature => creature.Statuses)
@@ -114,6 +122,9 @@ public class CommonDbContext : DbContext
         modelBuilder.Entity<Creature>()
             .HasOne<LiveEntityClass>(creature => creature.PersonClass)
             .WithMany();
+        modelBuilder.Entity<Creature>()
+            .HasOne<Ideology>(creature => creature.Ideology)
+            .WithMany();
 
         modelBuilder.Entity<Item>()
             .HasOne<ItemType>(item => item.Type)
@@ -125,6 +136,9 @@ public class CommonDbContext : DbContext
         modelBuilder.Entity<Weapon>()
             .HasOne<DamageType>(item => item.DamageType)
             .WithMany();
+        modelBuilder.Entity<Weapon>()
+            .HasMany<Property>(weapon => weapon.Properties)
+            .WithMany(property => property.Weapons);
 
         modelBuilder.Entity<SpellScroll>()
             .HasOne<ItemType>(scroll => scroll.Type)

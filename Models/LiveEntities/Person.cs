@@ -10,7 +10,7 @@ public class Person : ILiveEntity
     public Guid Id { get; init; }
     public string Name { get; set; }
     public int Level { get; set; }
-    public string Ideology { get; set; }
+    public Ideology Ideology { get; set; }
     public int MaxHealth { get; set; }
     public int CurrentHealth { get; set; }
     public List<Characteristic> Сharacteristics { get; init; }

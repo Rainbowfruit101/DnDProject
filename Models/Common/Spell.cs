@@ -13,8 +13,6 @@ public class Spell : IIdentifiable, IHasName
     public int Level { get; init; }
     public bool UseConcentration { get; init; }
     public string ConcentrationTime { get; init; }
-    public int DiceCount { get; init; }
-    public int DiceEdges { get; init; }
     public DamageType DamageType { get; init; }
     public List<SpellComponent> AvailableComponents { get; init; }
     public string Description { get; init; }
