@@ -7,7 +7,7 @@ public class Person : ILiveEntity
 {
     private readonly List<LiveEntityClass> _multiClass;
     
-    public Guid Id { get; init; }
+    public Guid Id { get; set; }
     public string Name { get; set; }
     public int Level { get; set; }
     public Ideology Ideology { get; set; }

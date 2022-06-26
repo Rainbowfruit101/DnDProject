@@ -5,7 +5,7 @@ namespace Models.LiveEntities;
 
 public class NonPlayerCharacter : ILiveEntity
 {
-    public Guid Id { get; init; }
+    public Guid Id { get; set; }
     public string Name { get; init; }
     public int Level { get; set; }
     public Ideology Ideology { get; init; }

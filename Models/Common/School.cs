@@ -17,7 +17,7 @@ public class School : IIdentifiable, IHasName
         Divination
     }
 
-    public Guid Id { get; init; }
+    public Guid Id { get; set; }
     public string Name { get; init; }
 
     public Type EType { get; init; }

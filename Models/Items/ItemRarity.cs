@@ -16,7 +16,7 @@ public class ItemRarity : IIdentifiable, IHasName
         Various
     }
 
-    public Guid Id { get; init; }
+    public Guid Id { get; set; }
     public string Name { get; init; }
 
     public Rarity ERarity { get; init; }

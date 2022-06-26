@@ -23,7 +23,7 @@ public class Status : IIdentifiable, IHasName
         Seized
     }
 
-    public Guid Id { get; init; }
+    public Guid Id { get; set; }
     public string Name { get; init; }
     public Type EType { get; init; }
     public string ImageSource { get; init; }

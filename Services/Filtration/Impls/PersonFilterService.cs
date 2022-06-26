@@ -25,7 +25,7 @@ public class PersonFilterService
             .FilterBy(personOptions => personOptions.Level,
                 (person, level) => person.Level == level)
             .FilterBy(personOptions => personOptions.PersonClass,
-                (person, personClass) => person.PersonClass == personClass)
+                (person, listPersonClasses) => listPersonClasses.All(person.AllClasses.Contains))
             .FilterBy(personOptions => personOptions.PersonRace,
                 (person, personRace) => person.PersonRace== personRace)
             .FilterBy(personOptions => personOptions.Name,

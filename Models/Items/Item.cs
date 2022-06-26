@@ -5,7 +5,7 @@ namespace Models.Items;
 
 public class Item : IIdentifiable, IHasName, IHasCost
 {
-    public Guid Id { get; init; }
+    public Guid Id { get; set; }
     public string Name { get; init; }
     public int Cost { get; init; }
     public ItemType Type { get; init; }

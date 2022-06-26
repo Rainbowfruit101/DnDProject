@@ -1,5 +1,7 @@
 using Database;
 using Microsoft.EntityFrameworkCore;
+using Models.Common;
+using Models.Items;
 using Models.LiveEntities;
 using Services.Crud;
 using Services.Crud.Impls;
@@ -17,20 +19,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<CommonDbContext>(ConfigureDefaultConnection);
 builder.Services.AddSingleton<SearchByNameService>();
 
-builder.Services.AddScoped<ICrudService<Creature>>(provider =>
-{
-    var type = builder.Configuration.GetValue<int>("CreatureService");
-    var dbContext = provider.GetService<CommonDbContext>();
-    if (dbContext == null)
-        throw new Exception($"{typeof(CommonDbContext).FullName} not found");
-    
-    if (type == 1)
-        return new CreatureCrudService(dbContext);
-    if (type == 2)
-        return new CreatureCustomCrudService(dbContext);
-
-    throw new ArgumentOutOfRangeException($"wrong CreatureService type: {type}");
-});
+builder.Services.AddScoped<ICrudService<Creature>, CreatureCrudService>();
+builder.Services.AddScoped<ICrudService<Person>, PersonCrudService>();
+builder.Services.AddScoped<ICrudService<NonPlayerCharacter>, NPCCrudService>();
+builder.Services.AddScoped<ICrudService<Item>, ItemCrudService>();
+builder.Services.AddScoped<ICrudService<Weapon>, WeaponCrudService>();
+builder.Services.AddScoped<ICrudService<Spell>, SpellCrudService>();
 
 var app = builder.Build();
 

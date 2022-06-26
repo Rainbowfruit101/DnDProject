@@ -6,7 +6,7 @@ namespace Models.Common;
 
 public class Spell : IIdentifiable, IHasName
 {
-    public Guid Id { get; init; }
+    public Guid Id { get; set; }
     public string Name { get; init; }
     public School School { get; init; }
     public List<LiveEntityClass> AvailableClasses { get; init; }

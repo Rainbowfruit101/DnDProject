@@ -5,7 +5,7 @@ namespace Models.Items;
 
 public class OtherItem: IIdentifiable, IHasName
 {
-    public Guid Id { get; init; }
+    public Guid Id { get; set; }
     public string Name { get; init; }
     
     public List<Backpack> Backpacks { get; init; }

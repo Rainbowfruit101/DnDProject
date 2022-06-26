@@ -21,7 +21,7 @@ public class DamageType : IIdentifiable, IHasName
         Poisonous
     }
 
-    public Guid Id { get; init; }
+    public Guid Id { get; set; }
     public string Name { get; init; }
     public string Description { get; init; }
     public Type EType { get; init; }

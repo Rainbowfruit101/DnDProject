@@ -1,7 +1,6 @@
 using Database;
 using Microsoft.AspNetCore.Mvc;
 using Models.LiveEntities;
-using Services.Crud;
 using Services.Filtration;
 
 namespace WebAPI.Controllers;
@@ -11,13 +10,12 @@ public class TestController : Controller
 {
     private readonly CommonDbContext _commonDbContext;
     private readonly SearchByNameService _searchByNameService;
-    private readonly ICrudService<Creature> _creatureCrudService;
 
-    public TestController(CommonDbContext commonDbContext, SearchByNameService searchByNameService, ICrudService<Creature> creatureCrudService)
+
+    public TestController(CommonDbContext commonDbContext, SearchByNameService searchByNameService)
     {
         _commonDbContext = commonDbContext;
         _searchByNameService = searchByNameService;
-        _creatureCrudService = creatureCrudService;
     }
 
     [HttpGet("/search-value")]

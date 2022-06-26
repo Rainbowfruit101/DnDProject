@@ -17,7 +17,7 @@ public class ItemType : IIdentifiable, IHasName
         WondrousItem
     }
 
-    public Guid Id { get; init; }
+    public Guid Id { get; set; }
     public string Name { get; init; }
 
     public Type EType { get; init; }

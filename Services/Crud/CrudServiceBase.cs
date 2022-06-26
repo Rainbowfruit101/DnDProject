@@ -5,7 +5,7 @@ using Models.Interfaces;
 namespace Services.Crud;
 
 public abstract class CrudServiceBase<TEntity> : ICrudService<TEntity>
-    where TEntity : class, IIdentifiable
+    where TEntity : class, IIdentifiable, new()
 {
     private readonly CommonDbContext _dbContext;
 
@@ -29,6 +29,11 @@ public abstract class CrudServiceBase<TEntity> : ICrudService<TEntity>
         _dbContext.SaveChanges();
 
         return entity;
+    }
+
+    public IEnumerable<TEntity> ReadAll()
+    {
+        return GetConcreteDbSet().ToArray();
     }
 
 

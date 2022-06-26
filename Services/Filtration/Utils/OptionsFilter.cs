@@ -11,7 +11,7 @@ public class OptionsFilter<TItem, TOptions>
         _options = options;
     }
 
-    public OptionsFilter<TItem, TOptions> FilterBy<TOption>(Func<TOptions, TOption> optionSelector, Func<TItem, TOption, bool> predicate)
+    public OptionsFilter<TItem, TOptions> FilterBy<TOption>(Func<TOptions, TOption?> optionSelector, Func<TItem, TOption, bool> predicate)
     {
         if (!_enumerable.Any())
             return this;

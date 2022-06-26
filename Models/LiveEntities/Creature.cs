@@ -5,7 +5,7 @@ namespace Models.LiveEntities;
 
 public class Creature : ILiveEntity
 {
-    public Guid Id { get; init; }
+    public Guid Id { get; set; }
     public string Name { get; init; }
     public int Level { get; init; }
     public Ideology Ideology { get; init; }
