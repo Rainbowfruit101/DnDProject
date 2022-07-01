@@ -1,6 +1,8 @@
-﻿namespace Services.Filtration.Utils;
+﻿using Services.Exceptions;
 
-public class OptionsFilter<TItem, TOptions>
+namespace Services.Filtration.Utils;
+
+public class OptionsFilter<TItem, TOptions>: IFilter<TItem>
 {
     private IEnumerable<TItem> _enumerable;
     private readonly TOptions _options;
@@ -26,4 +28,14 @@ public class OptionsFilter<TItem, TOptions>
     }
 
     public IEnumerable<TItem> Finish() => _enumerable;
+    
+    public TContinuator ContinueWith<TContinuator>(Func<IEnumerable<TItem>, TContinuator> continuatorProducer)
+        where TContinuator: class
+    {
+        var continuator = continuatorProducer?.Invoke(_enumerable);
+        if (continuator == null)
+            throw new EmptyContinuatorException();
+        
+        return continuator;
+    }
 }

@@ -1,8 +1,9 @@
-﻿using Services.Filtration.TextSearchPredicate;
+﻿using Services.Exceptions;
+using Services.Filtration.TextSearchPredicate;
 
 namespace Services.Filtration.Utils;
 
-public class TextFilter<TItem>
+public class TextFilter<TItem> : IFilter<TItem>
 {
     private IEnumerable<TItem> _enumerable;
     private readonly ITextSearchPredicate _textSearchPredicate;
@@ -31,7 +32,7 @@ public class TextFilter<TItem>
         return this;
     }
 
-    public TextFilter<TItem> SearchByWords(string searchedText, Func<TItem, string> fieldSelector,
+    public TextFilter<TItem> SearchByWords(Func<TItem, string> fieldSelector,string searchedText,
         bool caseSensitive = false)
     {
         _enumerable = _enumerable.Where(i => 
@@ -41,4 +42,12 @@ public class TextFilter<TItem>
     }
 
     public IEnumerable<TItem> Finish() => _enumerable;
+    public TContinuator ContinueWith<TContinuator>(Func<IEnumerable<TItem>, TContinuator> continuatorProducer) where TContinuator : class
+    {
+        var continuator = continuatorProducer?.Invoke(_enumerable);
+        if (continuator == null)
+            throw new EmptyContinuatorException();
+
+        return continuator;
+    }
 }

@@ -1,4 +1,5 @@
-﻿using Models.Interfaces;
+﻿using Database;
+using Models.Interfaces;
 using Services.Filtration;
 
 namespace WebAPI;
@@ -14,8 +15,9 @@ public class SearchByNameServiceDecorator
         _searchedValue = searchedValue;
     }
         
-    public IEnumerable<IHasName> SearchEntities(IEnumerable<IHasName> dbSet)
+    public IEnumerable<TEntity> SearchEntities<TEntity>(Func<CommonDbContext, IEnumerable<TEntity>> collectionSelector)
+        where TEntity : IHasName
     {
-        return _searchService.SearchEntities(dbSet, _searchedValue);
+        return _searchService.SearchEntities(collectionSelector, _searchedValue);
     }
 }
