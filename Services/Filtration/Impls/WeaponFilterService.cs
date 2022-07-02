@@ -6,7 +6,7 @@ using Services.Filtration.Utils;
 
 namespace Services.Filtration.Impls;
 
-public class WeaponFilterService
+public class WeaponFilterService : IFilterService<Weapon, WeaponFilterOptions>
 {
     private readonly CommonDbContext _dbContext;
     private readonly ITextSearchPredicate _textSearchPredicate;
@@ -23,9 +23,9 @@ public class WeaponFilterService
             .FilterBy(weaponOptions => weaponOptions.CostRange,
                 (weapon, range) => range.InRange(weapon.Cost))
             .FilterBy(weaponOptions => weaponOptions.Properties,
-                (weapon, listProperties) => listProperties.All(weapon.Properties.Contains))
+                (weapon, listProperties) => listProperties.All(weapon.Properties.Select(property => property.EType).Contains))
             .FilterBy(weaponOptions => weaponOptions.DamageType,
-                (weapon, damageType) => weapon.DamageType == damageType)
+                (weapon, damageType) => weapon.DamageType.EType == damageType)
             .FilterBy(weaponOptions => weaponOptions.Name,
                 (weapon, name) => _textSearchPredicate.Run(weapon.Name, name))
             .Finish();

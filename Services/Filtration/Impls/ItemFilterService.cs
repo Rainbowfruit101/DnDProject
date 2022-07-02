@@ -24,9 +24,9 @@ public class ItemFilterService : IFilterService<Item, ItemFilterOptions>
             .FilterBy(o => o.CostRange,
                 (item, range) => range.InRange(item.Cost))
             .FilterBy(o => o.Rarity,
-                (item, rarity) => item.Rarity == rarity)
+                (item, rarity) => item.Rarity.ERarity == rarity)
             .FilterBy(o => o.Type,
-                (item, type) => item.Type == type)
+                (item, type) => item.Type.EType == type)
             .FilterBy(o => o.LinkRequired,
                 (item, link) => item.LinkRequired == link)
             .FilterBy(o => o.Properties,

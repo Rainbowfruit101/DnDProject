@@ -6,7 +6,7 @@ using Services.Filtration.Utils;
 
 namespace Services.Filtration.Impls;
 
-public class NonPlayerCharacterFilterService
+public class NonPlayerCharacterFilterService : IFilterService<NonPlayerCharacter, NonPlayerCharacterFilterOptions>
 {
     private readonly CommonDbContext _dbContext;
     private readonly ITextSearchPredicate _textSearchPredicate;
@@ -19,17 +19,18 @@ public class NonPlayerCharacterFilterService
 
     public IEnumerable<NonPlayerCharacter> Filter(NonPlayerCharacterFilterOptions filterOptions)
     {
-        return new OptionsFilter<NonPlayerCharacter, NonPlayerCharacterFilterOptions>(_dbContext.NonPlayerCharacters, filterOptions)
-            .FilterBy(NPCOptions => NPCOptions.Ideology,
-                (NPC, ideology) => NPC.Ideology == ideology)
-            .FilterBy(NPCOptions => NPCOptions.Level,
-                (NPC, level) => NPC.Level == level)
-            .FilterBy(NPCOptions => NPCOptions.PersonClass,
-                (NPC, NPCClass) => NPC.PersonClass == NPCClass)
-            .FilterBy(NPCOptions => NPCOptions.PersonRace,
-                (NPC, NPCRace) => NPC.PersonRace== NPCRace)
-            .FilterBy(NPCOptions => NPCOptions.Name,
-                (NPC, name) => _textSearchPredicate.Run(NPC.Name, name))
+        return new OptionsFilter<NonPlayerCharacter, NonPlayerCharacterFilterOptions>(_dbContext.NonPlayerCharacters,
+                filterOptions)
+            .FilterBy(npcOptions => npcOptions.Ideology,
+                (npc, ideology) => npc.Ideology.EType == ideology)
+            .FilterBy(npcOptions => npcOptions.Level,
+                (npc, level) => npc.Level == level)
+            .FilterBy(npcOptions => npcOptions.PersonClass,
+                (npc, npcClass) => npc.PersonClass.EType == npcClass)
+            .FilterBy(npcOptions => npcOptions.PersonRace,
+                (npc, npcRace) => npc.PersonRace.ERace == npcRace)
+            .FilterBy(npcOptions => npcOptions.Name,
+                (npc, name) => _textSearchPredicate.Run(npc.Name, name))
             .Finish();
     }
 }

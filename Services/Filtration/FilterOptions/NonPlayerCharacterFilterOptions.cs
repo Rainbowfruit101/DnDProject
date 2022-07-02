@@ -5,8 +5,8 @@ namespace Services.Filtration.FilterOptions;
 public class NonPlayerCharacterFilterOptions
 {
     public string? Name { get; init; }
-    public Ideology? Ideology { get; init; }
+    public Ideology.Type? Ideology { get; init; }
     public int? Level { get; init; }
-    public LiveEntityClass? PersonClass { get; init; }
-    public LiveEntityRace? PersonRace { get; init; }
+    public LiveEntityClass.Type? PersonClass { get; init; }
+    public LiveEntityRace.Race? PersonRace { get; init; }
 }

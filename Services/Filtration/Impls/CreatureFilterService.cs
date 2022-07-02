@@ -6,7 +6,7 @@ using Services.Filtration.Utils;
 
 namespace Services.Filtration.Impls;
 
-public class CreatureFilterService
+public class CreatureFilterService : IFilterService<Creature, CreatureFilterOptions>
 {
     private readonly CommonDbContext _dbContext;
     private readonly ITextSearchPredicate _textSearchPredicate;
@@ -21,13 +21,13 @@ public class CreatureFilterService
     {
         return new OptionsFilter<Creature, CreatureFilterOptions>(_dbContext.Creatures, filterOptions)
             .FilterBy(creatureOptions => creatureOptions.Ideology,
-                (creature, ideology) => creature.Ideology == ideology)
+                (creature, ideology) => creature.Ideology.EType == ideology)
             .FilterBy(creatureOptions => creatureOptions.Level,
                 (creature, level) => creature.Level == level)
             .FilterBy(creatureOptions => creatureOptions.PersonClass,
-                (creature, creatureClass) => creature.PersonClass == creatureClass)
+                (creature, creatureClass) => creature.PersonClass.EType == creatureClass)
             .FilterBy(creatureOptions => creatureOptions.PersonRace,
-                (creature, creatureRace) => creature.PersonRace== creatureRace)
+                (creature, creatureRace) => creature.PersonRace.ERace == creatureRace)
             .FilterBy(creatureOptions => creatureOptions.Name,
                 (creature, name) => _textSearchPredicate.Run(creature.Name, name))
             .Finish();

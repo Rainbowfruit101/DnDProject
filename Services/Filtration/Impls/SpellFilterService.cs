@@ -6,7 +6,7 @@ using Services.Filtration.Utils;
 
 namespace Services.Filtration.Impls;
 
-public class SpellFilterService
+public class SpellFilterService : IFilterService<Spell, SpellFilterOptions>
 {
     private readonly CommonDbContext _dbContext;
     private readonly ITextSearchPredicate _textSearchPredicate;
@@ -23,15 +23,15 @@ public class SpellFilterService
             .FilterBy(spellOptions => spellOptions.Level,
                 (spell, level) => spell.Level == level)
             .FilterBy(spellOptions => spellOptions.School,
-                (spell, school) => spell.School == school)
+                (spell, school) => spell.School.EType == school)
             .FilterBy(spellOptions => spellOptions.UseConcentration,
                 (spell, concentration) => spell.UseConcentration == concentration)
             .FilterBy(spellOptions => spellOptions.Name,
                 (spell, name) => _textSearchPredicate.Run(spell.Name, name))
             .FilterBy(spellOptions => spellOptions.AvailableClasses,
-                (spell, listClasses) => listClasses.All(spell.AvailableClasses.Contains))
+                (spell, listClasses) => listClasses.All(spell.AvailableClasses.Select(personClass => personClass.EType).Contains))
             .FilterBy(spellOptions => spellOptions.AvailableComponents,
-                (spell, listComponents) => listComponents.All(spell.AvailableComponents.Contains))
+                (spell, listComponents) => listComponents.All(spell.AvailableComponents.Select(spellComponent => spellComponent.EType).Contains))
             .Finish();
     }
 }

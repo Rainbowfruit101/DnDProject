@@ -6,7 +6,7 @@ using Services.Filtration.Utils;
 
 namespace Services.Filtration.Impls;
 
-public class PersonFilterService
+public class PersonFilterService : IFilterService<Person, PersonFilterOptions>
 {
     private readonly CommonDbContext _dbContext;
     private readonly ITextSearchPredicate _textSearchPredicate;
@@ -21,13 +21,13 @@ public class PersonFilterService
     {
         return new OptionsFilter<Person, PersonFilterOptions>(_dbContext.Persons, filterOptions)
             .FilterBy(personOptions => personOptions.Ideology,
-                (person, ideology) => person.Ideology == ideology)
+                (person, ideology) => person.Ideology.EType == ideology)
             .FilterBy(personOptions => personOptions.Level,
                 (person, level) => person.Level == level)
-            .FilterBy(personOptions => personOptions.PersonClass,
-                (person, listPersonClasses) => listPersonClasses.All(person.AllClasses.Contains))
+            .FilterBy(personOptions => personOptions.PersonClasses,
+                (person, listPersonClasses) => listPersonClasses.All(person.AllClasses.Select(personClass => personClass.EType).Contains))
             .FilterBy(personOptions => personOptions.PersonRace,
-                (person, personRace) => person.PersonRace== personRace)
+                (person, personRace) => person.PersonRace.ERace == personRace)
             .FilterBy(personOptions => personOptions.Name,
                 (person, name) => _textSearchPredicate.Run(person.Name, name))
             .Finish();

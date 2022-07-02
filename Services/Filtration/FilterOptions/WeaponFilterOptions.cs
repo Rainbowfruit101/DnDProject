@@ -6,6 +6,6 @@ public class WeaponFilterOptions
 {
     public Range<int>? CostRange { get; init; }
     public string? Name { get; init; }
-    public DamageType? DamageType { get; init; }
-    public List<Property>? Properties { get; init; }
+    public DamageType.Type? DamageType { get; init; }
+    public List<Property.Type>? Properties { get; init; }
 }
