@@ -21,13 +21,13 @@ public class PersonFilterService : IFilterService<Person, PersonFilterOptions>
     {
         return new OptionsFilter<Person, PersonFilterOptions>(_dbContext.Persons, filterOptions)
             .FilterBy(personOptions => personOptions.Ideology,
-                (person, ideology) => person.Ideology.EType == ideology)
+                (person, ideology) => person.Ideology.Type == ideology)
             .FilterBy(personOptions => personOptions.Level,
                 (person, level) => person.Level == level)
             .FilterBy(personOptions => personOptions.PersonClasses,
-                (person, listPersonClasses) => listPersonClasses.All(person.AllClasses.Select(personClass => personClass.EType).Contains))
+                (person, listPersonClasses) => listPersonClasses.All(person.AllClasses.Select(personClass => personClass.Type).Contains))
             .FilterBy(personOptions => personOptions.PersonRace,
-                (person, personRace) => person.PersonRace.ERace == personRace)
+                (person, personRace) => person.PersonRace.Type == personRace)
             .FilterBy(personOptions => personOptions.Name,
                 (person, name) => _textSearchPredicate.Run(person.Name, name))
             .Finish();

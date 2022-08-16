@@ -1,4 +1,5 @@
 ﻿using Models.Common;
+using Models.Enums;
 using Models.Interfaces;
 
 namespace Models.LiveEntities;
@@ -38,18 +39,18 @@ public class Person : ILiveEntity
 
     public void AddMultiClass(LiveEntityClass liveEntityClass)
     {
-        if(liveEntityClass.EType == PersonClass.EType)
+        if(liveEntityClass.Type == PersonClass.Type)
             return;
         
-        if(_multiClass.Any(mc => mc.EType == liveEntityClass.EType))
+        if(_multiClass.Any(mc => mc.Type == liveEntityClass.Type))
             return;
 
         _multiClass.Add(liveEntityClass);
     }
 
-    public void RemoveMultiClass(LiveEntityClass.Type classType)
+    public void RemoveMultiClass(ClassType classType)
     {
-        var liveEntityClass = _multiClass.FirstOrDefault(mc => mc.EType == classType);
+        var liveEntityClass = _multiClass.FirstOrDefault(mc => mc.Type == classType);
         if(liveEntityClass == null)
             return;
 

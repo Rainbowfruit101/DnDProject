@@ -1,11 +1,14 @@
 ﻿using System.ComponentModel;
+using Microsoft.AspNetCore.Mvc;
 using Models.Common;
+using Models.Enums;
 using Models.LiveEntities;
 using Services.Filtration;
 using Services.Filtration.FilterOptions;
 
 namespace WebAPI.Controllers.Filters.Impls;
 
+[Route("/spells")]
 public class SpellFilterController : FilterControllerBase<Spell, SpellFilterOptions>
 {
     public SpellFilterController(IFilterService<Spell, SpellFilterOptions> entityFilterService) : base(
@@ -20,29 +23,16 @@ public class SpellFilterController : FilterControllerBase<Spell, SpellFilterOpti
         {
             Name = GetQueryString(nameof(optionNames.Name)),
             Level = GetQueryInt(nameof(optionNames.Level)),
-            School = GetQueryEnum<School.Type>(nameof(optionNames.School)),
-            AvailableClasses = GetQueryArrayOf(nameof(optionNames.AvailableClasses), ParseClassType)?
-                .Cast<LiveEntityClass.Type>()
+            School = GetQueryEnum<SchoolType>(nameof(optionNames.School)),
+            AvailableClasses = GetQueryArrayOf(nameof(optionNames.AvailableClasses), Parse<ClassType>)?
+                .Cast<ClassType>()
                 .ToList(),
-            AvailableComponents = GetQueryArrayOf(nameof(optionNames.AvailableComponents), ParseComponentType)?
-                .Cast<SpellComponent.Type>()
+            AvailableComponents = GetQueryArrayOf(nameof(optionNames.AvailableComponents), Parse<ComponentType>)?
+                .Cast<ComponentType>()
                 .ToList(),
             UseConcentration = GetQueryBool(nameof(optionNames.UseConcentration))
         };
         return options;
     }
 
-    private LiveEntityClass.Type? ParseClassType(string className)
-    {
-        if (Enum.TryParse<LiveEntityClass.Type>(className, out var result))
-            return result;
-        return null;
-    }
-
-    private SpellComponent.Type? ParseComponentType(string componentName)
-    {
-        if (Enum.TryParse<SpellComponent.Type>(componentName, out var result))
-            return result;
-        return null;
-    }
 }

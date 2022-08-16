@@ -22,13 +22,13 @@ public class NonPlayerCharacterFilterService : IFilterService<NonPlayerCharacter
         return new OptionsFilter<NonPlayerCharacter, NonPlayerCharacterFilterOptions>(_dbContext.NonPlayerCharacters,
                 filterOptions)
             .FilterBy(npcOptions => npcOptions.Ideology,
-                (npc, ideology) => npc.Ideology.EType == ideology)
+                (npc, ideology) => npc.Ideology.Type == ideology)
             .FilterBy(npcOptions => npcOptions.Level,
                 (npc, level) => npc.Level == level)
             .FilterBy(npcOptions => npcOptions.PersonClass,
-                (npc, npcClass) => npc.PersonClass.EType == npcClass)
+                (npc, npcClass) => npc.PersonClass.Type == npcClass)
             .FilterBy(npcOptions => npcOptions.PersonRace,
-                (npc, npcRace) => npc.PersonRace.ERace == npcRace)
+                (npc, npcRace) => npc.PersonRace.Type == npcRace)
             .FilterBy(npcOptions => npcOptions.Name,
                 (npc, name) => _textSearchPredicate.Run(npc.Name, name))
             .Finish();

@@ -13,7 +13,7 @@ public class TestController : Controller
         _searchByNameService = searchByNameService;
     }
 
-    [HttpGet("/search-value")]
+    [HttpGet("search-value")]
     public IActionResult SearchValue(string searchedValue)
     {
         var searchService = new SearchByNameServiceDecorator(_searchByNameService, searchedValue);

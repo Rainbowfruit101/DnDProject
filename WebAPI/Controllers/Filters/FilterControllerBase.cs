@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Services.Filtration;
-using Services.Filtration.FilterOptions;
 
 namespace WebAPI.Controllers.Filters;
 
@@ -13,7 +12,7 @@ public abstract class FilterControllerBase<TEntity, TFilterOptions> : Controller
         _entityFilterService = entityFilterService;
     }
 
-    [HttpGet("/filter")]
+    [HttpGet("filter")]
     public IActionResult Filter()
     {
         var options = GetFilterOptions();
@@ -62,13 +61,13 @@ public abstract class FilterControllerBase<TEntity, TFilterOptions> : Controller
     }
 
     protected TEnum? GetQueryEnum<TEnum>(string parameterName)
-        where TEnum : Enum
+        where TEnum : struct, Enum
     {
         var str = GetQueryString(parameterName);
-        if (Enum.TryParse(typeof(TEnum), str, out var result))
-            return (TEnum) (result!);
+        if (Enum.TryParse<TEnum>(str, out var result))
+            return result;
 
-        return default;
+        return null;
     }
 
     protected List<TItem>? GetQueryArrayOf<TItem>(string parameterName, Func<string, TItem> convert)
@@ -90,5 +89,13 @@ public abstract class FilterControllerBase<TEntity, TFilterOptions> : Controller
             return null;
 
         return convertedElements.ToList()!;
+    }
+
+    protected TEnum? Parse<TEnum>(string value)
+        where TEnum : struct, Enum
+    {
+        if (Enum.TryParse<TEnum>(value, out var result))
+            return result;
+        return null;
     }
 }

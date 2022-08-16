@@ -1,12 +1,13 @@
-﻿using Models.LiveEntities;
+﻿using Models.Enums;
+using Models.LiveEntities;
 
 namespace Services.Filtration.FilterOptions;
 
 public class NonPlayerCharacterFilterOptions
 {
     public string? Name { get; init; }
-    public Ideology.Type? Ideology { get; init; }
+    public IdeologyType? Ideology { get; init; }
     public int? Level { get; init; }
-    public LiveEntityClass.Type? PersonClass { get; init; }
-    public LiveEntityRace.Race? PersonRace { get; init; }
+    public ClassType? PersonClass { get; init; }
+    public RaceType? PersonRace { get; init; }
 }

@@ -1,11 +1,6 @@
 ﻿using Database;
-using Microsoft.EntityFrameworkCore;
 using Models.Interfaces;
-using Models.LiveEntities;
-using Services.Filtration.FilterOptions;
 using Services.Filtration.TextSearchPredicate;
-using Services.Filtration.TextSearchPredicate.Impls;
-using Services.Filtration.Utils;
 
 namespace Services.Filtration;
 

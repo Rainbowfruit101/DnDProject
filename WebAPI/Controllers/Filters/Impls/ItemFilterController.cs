@@ -1,12 +1,16 @@
-﻿using Models.Items;
+﻿using Microsoft.AspNetCore.Mvc;
+using Models.Enums;
+using Models.Items;
 using Services.Filtration;
 using Services.Filtration.FilterOptions;
 
 namespace WebAPI.Controllers.Filters.Impls;
 
+[Route("/items")]
 public class ItemFilterController : FilterControllerBase<Item, ItemFilterOptions>
 {
-    public ItemFilterController(IFilterService<Item, ItemFilterOptions> entityFilterService) : base(entityFilterService)
+    public ItemFilterController(IFilterService<Item, ItemFilterOptions> entityFilterService) 
+        :base(entityFilterService)
     {
     }
 
@@ -20,8 +24,8 @@ public class ItemFilterController : FilterControllerBase<Item, ItemFilterOptions
         {
             Name = GetQueryString(nameof(optionNames.Name)),
             Properties = GetQueryString(nameof(optionNames.Properties)),
-            Rarity = GetQueryEnum<ItemRarity.Rarity>(nameof(optionNames.Rarity)),
-            Type = GetQueryEnum<ItemType.Type>(nameof(optionNames.Type)),
+            Rarity = GetQueryEnum<RarityType>(nameof(optionNames.Rarity)),
+            Type = GetQueryEnum<ItemEType>(nameof(optionNames.Type)),
             CostRange = new Range<int>()
             {
                 HasMin = minCost.HasValue,

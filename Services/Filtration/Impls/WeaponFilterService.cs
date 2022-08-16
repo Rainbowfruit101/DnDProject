@@ -23,9 +23,9 @@ public class WeaponFilterService : IFilterService<Weapon, WeaponFilterOptions>
             .FilterBy(weaponOptions => weaponOptions.CostRange,
                 (weapon, range) => range.InRange(weapon.Cost))
             .FilterBy(weaponOptions => weaponOptions.Properties,
-                (weapon, listProperties) => listProperties.All(weapon.Properties.Select(property => property.EType).Contains))
+                (weapon, listProperties) => listProperties.All(weapon.Properties.Select(property => property.Type).Contains))
             .FilterBy(weaponOptions => weaponOptions.DamageType,
-                (weapon, damageType) => weapon.DamageType.EType == damageType)
+                (weapon, damageType) => weapon.DamageType.Type == damageType)
             .FilterBy(weaponOptions => weaponOptions.Name,
                 (weapon, name) => _textSearchPredicate.Run(weapon.Name, name))
             .Finish();

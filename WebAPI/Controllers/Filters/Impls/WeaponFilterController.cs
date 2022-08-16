@@ -1,13 +1,16 @@
-﻿using Models.Items;
+﻿using Microsoft.AspNetCore.Mvc;
+using Models.Enums;
+using Models.Items;
 using Services.Filtration;
 using Services.Filtration.FilterOptions;
 
 namespace WebAPI.Controllers.Filters.Impls;
 
+[Route("/weapons")]
 public class WeaponFilterController : FilterControllerBase<Weapon, WeaponFilterOptions>
 {
-    public WeaponFilterController(IFilterService<Weapon, WeaponFilterOptions> entityFilterService) : base(
-        entityFilterService)
+    public WeaponFilterController(IFilterService<Weapon, WeaponFilterOptions> entityFilterService) 
+        : base(entityFilterService)
     {
     }
 
@@ -20,8 +23,8 @@ public class WeaponFilterController : FilterControllerBase<Weapon, WeaponFilterO
         var options = new WeaponFilterOptions()
         {
             Name = GetQueryString(nameof(optionNames.Name)),
-            Properties = GetQueryArrayOf(nameof(optionNames.Properties), ParsePropertyType)?
-                .Cast<Property.Type>()
+            Properties = GetQueryArrayOf(nameof(optionNames.Properties), Parse<PropertyType>)?
+                .Cast<PropertyType>()
                 .ToList(),
             CostRange = new Range<int>()
             {
@@ -30,15 +33,8 @@ public class WeaponFilterController : FilterControllerBase<Weapon, WeaponFilterO
                 Min = minCost ?? 0,
                 Max = maxCost ?? 0
             },
-            DamageType = GetQueryEnum<DamageType.Type>(nameof(optionNames.DamageType))
+            DamageType = GetQueryEnum<DamageEType>(nameof(optionNames.DamageType))
         };
         return options;
-    }
-
-    private Property.Type? ParsePropertyType(string propertyName)
-    {
-        if (Enum.TryParse<Property.Type>(propertyName, out var result))
-            return result;
-        return null;
     }
 }

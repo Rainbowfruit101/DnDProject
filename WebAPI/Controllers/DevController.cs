@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Models.Common;
+using Models.Enums;
 using Models.Items;
 using Models.LiveEntities;
 
@@ -17,7 +18,7 @@ public class DevController : Controller
         _commonDbContext = commonDbContext;
     }
 
-    [HttpGet("/create-db")]
+    [HttpGet("create-db")]
     public IActionResult CreateDb()
     {
         try
@@ -26,75 +27,75 @@ public class DevController : Controller
 
             _commonDbContext.Database.EnsureCreated();
 
-            FillTypedEntities<School, School.Type>(
+            FillTypedEntities<School, SchoolType>(
                 _commonDbContext.Schools,
                 type => new School()
                 {
                     Id = Guid.NewGuid(),
                     Name = type.ToString(),
-                    EType = type
+                    Type = type
                 }
             );
 
-            FillTypedEntities<DamageType, DamageType.Type>(
+            FillTypedEntities<DamageType, DamageEType>(
                 _commonDbContext.DamageTypes,
                 type => new DamageType()
                 {
                     Id = Guid.NewGuid(),
                     Name = type.ToString(),
-                    EType = type,
+                    Type = type,
                     Description = ""
                 }
             );
 
-            FillTypedEntities<ItemRarity, ItemRarity.Rarity>(
+            FillTypedEntities<ItemRarity, RarityType>(
                 _commonDbContext.ItemRarities,
                 type => new ItemRarity()
                 {
                     Id = Guid.NewGuid(),
                     Name = type.ToString(),
-                    ERarity = type,
+                    Type = type,
                     Modifier = 0
                 }
             );
 
-            FillTypedEntities<ItemType, ItemType.Type>(
+            FillTypedEntities<ItemType, ItemEType>(
                 _commonDbContext.ItemTypes,
                 type => new ItemType()
                 {
                     Id = Guid.NewGuid(),
                     Name = type.ToString(),
-                    EType = type
+                    Type = type
                 }
             );
 
-            FillTypedEntities<LiveEntityClass, LiveEntityClass.Type>(
+            FillTypedEntities<LiveEntityClass, ClassType>(
                 _commonDbContext.Classes,
                 type => new LiveEntityClass()
                 {
                     Id = Guid.NewGuid(),
                     Name = type.ToString(),
-                    EType = type
+                    Type = type
                 }
             );
 
-            FillTypedEntities<LiveEntityRace, LiveEntityRace.Race>(
+            FillTypedEntities<LiveEntityRace, RaceType>(
                 _commonDbContext.Races,
                 type => new LiveEntityRace()
                 {
                     Id = Guid.NewGuid(),
                     Name = type.ToString(),
-                    ERace = type
+                    Type = type
                 }
             );
 
-            FillTypedEntities<Status, Status.Type>(
+            FillTypedEntities<Status, StatusType>(
                 _commonDbContext.Statuses,
                 type => new Status()
                 {
                     Id = Guid.NewGuid(),
                     Name = type.ToString(),
-                    EType = type,
+                    Type = type,
                     Description = "",
                     ImageSource = ""
                 }

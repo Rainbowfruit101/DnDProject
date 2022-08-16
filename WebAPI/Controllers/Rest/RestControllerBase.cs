@@ -16,12 +16,12 @@ public abstract class RestControllerBase<TEntity> : Controller
     }
 
     [HttpGet]
-    public IActionResult GetAll()
+    public IActionResult Index()
     {
         return Json(_entityCrudService.ReadAll());
     }
 
-    [HttpGet("/{id}")]
+    [HttpGet("{id}")]
     public IActionResult Get(Guid id)
     {
         var entity = _entityCrudService.Read(id);
@@ -44,29 +44,14 @@ public abstract class RestControllerBase<TEntity> : Controller
         {
             return BadRequest(new
             {
-                errorText = $"Can not create new entity."
+                errorText = "Can not create new entity."
             });
         }
 
         return Json(newEntity);
     }
 
-    [HttpDelete("/{id}")]
-    public IActionResult Remove(Guid id)
-    {
-        var entity = _entityCrudService.Delete(id);
-        if (entity == null)
-        {
-            return NotFound(new
-            {
-                errorText = $"Entity with id {id} not found."
-            });
-        }
-
-        return Json(entity);
-    }
-
-    [HttpPatch("/{id}")]
+    [HttpPatch("{id}")]
     public IActionResult Update(Guid id, [FromBody] TEntity entity)
     {
         try
@@ -82,5 +67,20 @@ public abstract class RestControllerBase<TEntity> : Controller
             });
         }
 
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult Delete(Guid id)
+    {
+        var entity = _entityCrudService.Delete(id);
+        if (entity == null)
+        {
+            return NotFound(new
+            {
+                errorText = $"Entity with id {id} not found."
+            });
+        }
+
+        return Json(entity);
     }
 }

@@ -23,15 +23,15 @@ public class SpellFilterService : IFilterService<Spell, SpellFilterOptions>
             .FilterBy(spellOptions => spellOptions.Level,
                 (spell, level) => spell.Level == level)
             .FilterBy(spellOptions => spellOptions.School,
-                (spell, school) => spell.School.EType == school)
+                (spell, school) => spell.School.Type == school)
             .FilterBy(spellOptions => spellOptions.UseConcentration,
                 (spell, concentration) => spell.UseConcentration == concentration)
             .FilterBy(spellOptions => spellOptions.Name,
                 (spell, name) => _textSearchPredicate.Run(spell.Name, name))
             .FilterBy(spellOptions => spellOptions.AvailableClasses,
-                (spell, listClasses) => listClasses.All(spell.AvailableClasses.Select(personClass => personClass.EType).Contains))
+                (spell, listClasses) => listClasses.All(spell.AvailableClasses.Select(personClass => personClass.Type).Contains))
             .FilterBy(spellOptions => spellOptions.AvailableComponents,
-                (spell, listComponents) => listComponents.All(spell.AvailableComponents.Select(spellComponent => spellComponent.EType).Contains))
+                (spell, listComponents) => listComponents.All(spell.AvailableComponents.Select(spellComponent => spellComponent.Type).Contains))
             .Finish();
     }
 }
