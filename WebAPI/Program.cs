@@ -52,6 +52,18 @@ void ConfigureDefaultConnection(DbContextOptionsBuilder options)
         return;
     }
 
+    if (connectionString.StartsWith("$"))
+    {
+        var envValue = Environment.GetEnvironmentVariable(connectionString.TrimStart('$'));
+        connectionString = string.IsNullOrWhiteSpace(envValue) ? string.Empty : envValue;
+    }
+    
+    if (string.IsNullOrWhiteSpace(connectionString))
+    {
+        Console.WriteLine("DnDDatabase connection string is not set");
+        return;
+    }
+    
     options.UseNpgsql(connectionString);
 }
 

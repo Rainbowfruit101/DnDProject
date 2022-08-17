@@ -1,0 +1,48 @@
+﻿version: '3.1'
+
+networks:
+  dnd-network:
+    driver: bridge
+
+volumes:
+  dnd-db-volume:
+
+services:
+  dnd-app:
+    container_name: dnd-app
+    image: dndproject
+    depends_on: 
+      - dnd-database
+    networks:
+      - dnd-network
+    environment:
+      DND_DB: "Host=dnd-database;Database=dnd-db;Username=postgres;Password=weri_complex_P4SSW0RD"
+    ports:
+      - "8080:80"
+      - "8443:443"
+
+  dnd-database:
+    container_name: dnd-database
+    image: postgres
+    networks:
+      - dnd-network
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: weri_complex_P4SSW0RD
+    ports:
+      - "5432:5432"
+    volumes:
+      - dnd-db-volume:/var/lib/postgresql/data
+  
+  dnd-pg-admin:
+    container_name: dnd-pg-admin
+    image: dpage/pgadmin4
+    depends_on:
+      - dnd-database
+    networks:
+      - dnd-network
+    ports:
+      - "8081:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=pg@mail.ru
+      - PGADMIN_DEFAULT_PASSWORD=pa55W0rd

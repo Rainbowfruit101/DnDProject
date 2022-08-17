@@ -10,21 +10,21 @@ public abstract class RestControllerBase<TEntity> : Controller
 {
     private readonly ICrudService<TEntity> _entityCrudService;
 
-    public RestControllerBase(ICrudService<TEntity> entityCrudService)
+    protected RestControllerBase(ICrudService<TEntity> entityCrudService)
     {
         _entityCrudService = entityCrudService;
     }
 
     [HttpGet]
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return Json(_entityCrudService.ReadAll());
+        return Json(await _entityCrudService.ReadAllAsync());
     }
 
     [HttpGet("{id}")]
-    public IActionResult Get(Guid id)
+    public async Task<IActionResult> Get(Guid id)
     {
-        var entity = _entityCrudService.Read(id);
+        var entity = await _entityCrudService.ReadAsync(id);
         if (entity == null)
         {
             return NotFound(new
@@ -37,9 +37,9 @@ public abstract class RestControllerBase<TEntity> : Controller
     }
 
     [HttpPost]
-    public IActionResult Add([FromBody] TEntity entity)
+    public async Task<IActionResult> Add([FromBody] TEntity entity)
     {
-        var newEntity = _entityCrudService.Create(id => entity.AttachId(id));
+        var newEntity = await _entityCrudService.CreateAsync(id => entity.AttachId(id));
         if (newEntity == null)
         {
             return BadRequest(new
@@ -52,11 +52,11 @@ public abstract class RestControllerBase<TEntity> : Controller
     }
 
     [HttpPatch("{id}")]
-    public IActionResult Update(Guid id, [FromBody] TEntity entity)
+    public async Task<IActionResult> Update(Guid id, [FromBody] TEntity entity)
     {
         try
         {
-            var updatedEntity = _entityCrudService.Update(entity.AttachId(id));
+            var updatedEntity = await _entityCrudService.UpdateAsync(entity.AttachId(id));
             return Json(updatedEntity);
         }
         catch (Exception e)
@@ -70,9 +70,9 @@ public abstract class RestControllerBase<TEntity> : Controller
     }
 
     [HttpDelete("{id}")]
-    public IActionResult Delete(Guid id)
+    public async Task<IActionResult> Delete(Guid id)
     {
-        var entity = _entityCrudService.Delete(id);
+        var entity = await _entityCrudService.DeleteAsync(id);
         if (entity == null)
         {
             return NotFound(new
