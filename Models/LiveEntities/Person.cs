@@ -12,6 +12,7 @@ public class Person : ILiveEntity
     public string Name { get; set; }
     public int Level { get; set; }
     public Ideology Ideology { get; set; }
+    public int ArmorClass { get; init; }
     public int MaxHealth { get; set; }
     public int CurrentHealth { get; set; }
     public List<Characteristic> Сharacteristics { get; init; }

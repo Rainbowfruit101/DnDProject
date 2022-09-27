@@ -7,6 +7,7 @@ public interface ILiveEntity : IIdentifiable, IHasName
 {
     public int Level { get; }
     public Ideology Ideology { get; }
+    public int ArmorClass { get; }
     public int MaxHealth { get; }
     public int CurrentHealth { get; }
     public List<Characteristic> Сharacteristics { get; }

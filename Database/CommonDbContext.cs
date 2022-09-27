@@ -49,9 +49,6 @@ public class CommonDbContext : DbContext
             .HasOne<School>(spell => spell.School)
             .WithMany();
         modelBuilder.Entity<Spell>()
-            .HasOne<DamageType>(spell => spell.DamageType)
-            .WithMany();
-        modelBuilder.Entity<Spell>()
             .HasMany<LiveEntityClass>(spell => spell.AvailableClasses)
             .WithMany(leClass => leClass.Spells);
         modelBuilder.Entity<Spell>()

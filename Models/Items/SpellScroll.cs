@@ -1,4 +1,5 @@
 ﻿using Models.Common;
+using Models.Interfaces;
 
 namespace Models.Items;
 

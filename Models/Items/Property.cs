@@ -1,8 +1,9 @@
 ﻿using Models.Enums;
+using Models.Interfaces;
 
 namespace Models.Items;
 
-public class Property
+public class Property : IIdentifiable
 {
     public Guid Id { get; set; }
     public string Title { get; init; }

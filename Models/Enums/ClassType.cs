@@ -14,5 +14,6 @@ public enum ClassType
     Rogue,
     Tracker,
     Enchanter,
-    Inventor
+    Inventor,
+    Monster
 }

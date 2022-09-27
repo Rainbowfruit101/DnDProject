@@ -2,7 +2,6 @@
 using Models.Items;
 using Services.Filtration.FilterOptions;
 using Services.Filtration.TextSearchPredicate;
-using Services.Filtration.TextSearchPredicate.Impls;
 using Services.Filtration.Utils;
 
 namespace Services.Filtration.Impls;
@@ -30,7 +29,7 @@ public class ItemFilterService : IFilterService<Item, ItemFilterOptions>
             .FilterBy(o => o.LinkRequired,
                 (item, link) => item.LinkRequired == link)
             .FilterBy(o => o.Properties,
-                (item, properties) => _textSearchPredicate.Run(item.Properties, properties))
+                (item, properties) => _textSearchPredicate.Run(item.Description, properties))
             .FilterBy(o => o.Name,
                 (item, name) => _textSearchPredicate.Run(item.Name, name))
             .Finish();
