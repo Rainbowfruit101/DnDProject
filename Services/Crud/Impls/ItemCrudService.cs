@@ -7,15 +7,7 @@ namespace Services.Crud.Impls;
 
 public class ItemCrudService : CrudServiceBase<Item>
 {
-    private readonly CommonDbContext _dbContext;
-
-    public ItemCrudService(CommonDbContext dbContext) : base(dbContext)
+    public ItemCrudService(IRepository<Item> repository) : base(repository)
     {
-        _dbContext = dbContext;
-    }
-
-    protected override DbSet<Item> GetDbSet(CommonDbContext dbContext)
-    {
-        return _dbContext.Items;
     }
 }

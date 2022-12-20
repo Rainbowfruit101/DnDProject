@@ -7,16 +7,12 @@ namespace Services.Crud;
 public abstract class CrudServiceBase<TEntity> : ICrudService<TEntity>
     where TEntity : class, IIdentifiable, new()
 {
-    private readonly CommonDbContext _dbContext;
+    private readonly IRepository<TEntity> _repository;
 
-    protected CrudServiceBase(CommonDbContext dbContext)
+    protected CrudServiceBase(IRepository<TEntity> repository)
     {
-        _dbContext = dbContext;
+        _repository = repository;
     }
-
-    protected abstract DbSet<TEntity> GetDbSet(CommonDbContext dbContext);
-    
-    private DbSet<TEntity> GetConcreteDbSet() => GetDbSet(_dbContext);
 
     public virtual async Task<TEntity?> CreateAsync(Func<Guid, TEntity?> entityProducer)
     {
@@ -24,29 +20,29 @@ public abstract class CrudServiceBase<TEntity> : ICrudService<TEntity>
         var entity = entityProducer(id);
         if (entity == null)
             return null;
-
-        var entityEntry = await GetConcreteDbSet().AddAsync(entity);
-        entity = entityEntry.Entity;
         
-        await _dbContext.SaveChangesAsync();
+        var entityEntry = await _repository.GetDbSet().AddAsync(entity);
+        entity = entityEntry.Entity;
+
+        await _repository.SaveAsync();
 
         return entity;
     }
 
     public async Task<IEnumerable<TEntity>> ReadAllAsync()
     {
-        return await GetConcreteDbSet().ToArrayAsync();
+        return await _repository.GetQueryable().ToArrayAsync();
     }
     
     public virtual async Task<TEntity?> ReadAsync(Guid id)
     {
-        return await GetConcreteDbSet().FirstOrDefaultAsync(e => e.Id == id);
+        return await _repository.GetQueryable().FirstOrDefaultAsync(e => e.Id == id);
     }
 
     public virtual async Task<TEntity?> UpdateAsync(TEntity source)
     {
-        var updatedEntity = GetConcreteDbSet().Update(source).Entity;
-        await _dbContext.SaveChangesAsync();
+        var updatedEntity = _repository.GetDbSet().Update(source).Entity;
+        await _repository.SaveAsync();
         return updatedEntity;
     }
 
@@ -56,9 +52,9 @@ public abstract class CrudServiceBase<TEntity> : ICrudService<TEntity>
         if (existingEntity == null)
             return null;
         
-        GetConcreteDbSet().Remove(existingEntity);
-        await _dbContext.SaveChangesAsync();
-        
+        _repository.GetDbSet().Remove(existingEntity);
+        await _repository.SaveAsync();
+
         return existingEntity;
     }
 }

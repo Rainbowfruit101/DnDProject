@@ -6,15 +6,7 @@ namespace Services.Crud.Impls;
 
 public class NPCCrudService : CrudServiceBase<NonPlayerCharacter>
 {
-    private readonly CommonDbContext _dbContext;
-
-    public NPCCrudService(CommonDbContext dbContext) : base(dbContext)
+    public NPCCrudService(IRepository<NonPlayerCharacter> repository) : base(repository)
     {
-        _dbContext = dbContext;
-    }
-    
-    protected override DbSet<NonPlayerCharacter> GetDbSet(CommonDbContext dbContext)
-    {
-        return _dbContext.NonPlayerCharacters;
     }
 }

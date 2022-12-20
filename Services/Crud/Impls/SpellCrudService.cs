@@ -6,15 +6,7 @@ namespace Services.Crud.Impls;
 
 public class SpellCrudService : CrudServiceBase<Spell>
 {
-    private readonly CommonDbContext _dbContext;
-
-    public SpellCrudService(CommonDbContext dbContext) : base(dbContext)
+    public SpellCrudService(IRepository<Spell> repository) : base(repository)
     {
-        _dbContext = dbContext;
-    }
-
-    protected override DbSet<Spell> GetDbSet(CommonDbContext dbContext)
-    {
-        return _dbContext.Spells;
     }
 }

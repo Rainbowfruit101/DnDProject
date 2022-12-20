@@ -7,15 +7,7 @@ namespace Services.Crud.Impls;
 
 public class WeaponCrudService : CrudServiceBase<Weapon>
 {
-    private readonly CommonDbContext _dbContext;
-
-    public WeaponCrudService(CommonDbContext dbContext) : base(dbContext)
+    public WeaponCrudService(IRepository<Weapon> repository) : base(repository)
     {
-        _dbContext = dbContext;
-    }
-
-    protected override DbSet<Weapon> GetDbSet(CommonDbContext dbContext)
-    {
-        return _dbContext.Weapons;
     }
 }

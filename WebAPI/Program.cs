@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using Database;
+using Database.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Models.Common;
 using Models.Items;
@@ -20,13 +21,21 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<CommonDbContext>(ConfigureDefaultConnection);
 
-builder.Services.AddScoped<ITextSearchPredicate>(ResolveTextSearchPredicate);
+builder.Services.AddScoped<IRepository<Creature>, CreaturesRepository>();
+builder.Services.AddScoped<IRepository<Item>, ItemsRepository>();
+builder.Services.AddScoped<IRepository<NonPlayerCharacter>, NPCsRepository>();
+builder.Services.AddScoped<IRepository<Person>, PersonsRepository>();
+builder.Services.AddScoped<IRepository<Spell>, SpellsRepository>();
+builder.Services.AddScoped<IRepository<Weapon>, WeaponsRepository>();
+
 builder.Services.AddScoped<ICrudService<Creature>, CreatureCrudService>();
-builder.Services.AddScoped<ICrudService<Person>, PersonCrudService>();
-builder.Services.AddScoped<ICrudService<NonPlayerCharacter>, NPCCrudService>();
 builder.Services.AddScoped<ICrudService<Item>, ItemCrudService>();
-builder.Services.AddScoped<ICrudService<Weapon>, WeaponCrudService>();
+builder.Services.AddScoped<ICrudService<NonPlayerCharacter>, NPCCrudService>();
+builder.Services.AddScoped<ICrudService<Person>, PersonCrudService>();
 builder.Services.AddScoped<ICrudService<Spell>, SpellCrudService>();
+builder.Services.AddScoped<ICrudService<Weapon>, WeaponCrudService>();
+
+builder.Services.AddScoped<ITextSearchPredicate>(ResolveTextSearchPredicate);
 builder.Services.AddScoped<SearchByNameService>();
 
 var app = builder.Build();
